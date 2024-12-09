@@ -1,13 +1,13 @@
 // import React, { useState, useEffect } from 'react';
 import Search from '@/app/assets/search';
-import Table from '../table';
-import Pagination from '../paginatio';
+import Table from './table';
+import Pagination from './paginatio';
 import { Suspense } from 'react';
 import { fetchCustomersPages } from '@/app/lib/data';
 import { poppins } from '@/app/assets/fonts';
 import { Metadata } from 'next';
-import { CreateCustomer } from '../buttons';
-import { CustomersTableSkeleton } from '../../skeleton';
+import { CreateCustomer } from './buttons';
+import { CustomersTableSkeleton } from '../skeleton';
 
 export const metadata: Metadata = {
   title: 'Customers',
