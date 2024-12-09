@@ -1,23 +1,31 @@
-import Form from '../../edit-form';
-import Breadcrumbs from '../../breadcrumbs';
-import { fetchCustomerById } from '@/app/lib/data';
+import { GetServerSideProps } from 'next';
+import { ParsedUrlQuery } from 'querystring';
 
-export default async function Page({ params }: { params: { id: string } }) {
-  const id = params.id;
-  const [customers] = await Promise.all([fetchCustomerById(id)]);
-  return (
-    <main>
-      <Breadcrumbs
-        breadcrumbs={[
-          { label: 'Customers', href: '/dashboard/customer' },
-          {
-            label: 'Edit Customer',
-            href: `/dashboard/customer/${id}/edit`,
-            active: true,
-          },
-        ]}
-      />
-      <Form customers={customers} />
-    </main>
-  );
+interface PageProps {
+  params: {
+    id: string;
+  };
 }
+
+export const getServerSideProps: GetServerSideProps<PageProps> = async (context) => {
+  const { id } = context.params!;
+  
+  // Pastikan id adalah string (bisa melakukan pemeriksaan dan konversi)
+  if (Array.isArray(id)) {
+    return {
+      notFound: true, // Atau bisa mengarahkan ke halaman error jika perlu
+    };
+  }
+
+  return {
+    props: {
+      params: { id: id ?? '' }, // Pastikan id tidak undefined
+    },
+  };
+};
+
+const Page = ({ params }: PageProps) => {
+  return <div>ID: {params.id}</div>;
+};
+
+export default Page;
