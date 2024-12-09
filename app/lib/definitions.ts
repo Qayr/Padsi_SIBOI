@@ -1,88 +1,336 @@
-// This file contains type definitions for your data.
-// It describes the shape of the data, and what data type each property should accept.
-// For simplicity of teaching, we're manually defining these types.
-// However, these types are generated automatically if you're using an ORM such as Prisma.
+import z from 'zod';
+
 export type User = {
-  id: string;
-  name: string;
-  email: string;
-  password: string;
+  // id: string;
+  // name: string;
+  // email: string;
+  // password: string;
+  username:string;
+  password:string;
+  nama:string;
+  alamat:string;
+  email:string;
+  nomortelepon:string;
+
 };
+
+export type SessionPayload = {
+  username:string;
+  role:string;
+}
+// END USERS //
 
 export type Customer = {
-  id: string;
-  name: string;
-  email: string;
-  image_url: string;
-};
-
-export type Invoice = {
-  id: string;
-  customer_id: string;
-  amount: number;
-  date: string;
-  // In TypeScript, this is called a string union type.
-  // It means that the "status" property can only be one of the two strings: 'pending' or 'paid'.
-  status: 'pending' | 'paid';
-};
-
-export type Revenue = {
-  month: string;
-  revenue: number;
-};
-
-export type LatestInvoice = {
-  id: string;
-  name: string;
-  image_url: string;
-  email: string;
-  amount: string;
-};
-
-// The database returns a number for amount, but we later format it to a string with the formatCurrency function
-export type LatestInvoiceRaw = Omit<LatestInvoice, 'amount'> & {
-  amount: number;
-};
-
-export type InvoicesTable = {
-  id: string;
-  customer_id: string;
-  name: string;
-  email: string;
-  image_url: string;
-  date: string;
-  amount: number;
-  status: 'pending' | 'paid';
-};
-
-export type CustomersTableType = {
-  id: string;
-  name: string;
-  email: string;
-  image_url: string;
-  total_invoices: number;
-  total_pending: number;
-  total_paid: number;
-};
-
-export type FormattedCustomersTable = {
-  id: string;
-  name: string;
-  email: string;
-  image_url: string;
-  total_invoices: number;
-  total_pending: string;
-  total_paid: string;
+  nocustomer:string;
+  namacustomer:string;
+  alamatcustomer:string;
+  poin:string;
+  nomortelepon:string;
 };
 
 export type CustomerField = {
+  nocustomer:string;
+  namacustomer:string;
+  poin:number;
+};
+
+export type CustomersTable = {
+  nocustomer:string;
+  namacustomer:string;
+  alamatcustomer:string;
+  poin:string;
+  nomortelepon:string;
+};
+
+export type CustomerForm = {
+  nocustomer:string;
+  namacustomer:string;
+  alamatcustomer:string;
+  poin:string;
+  nomortelepon:string;
+};
+
+export type FormattedCustomersTable = {
+  nocustomer:string;
+  namacustomer:string;
+  nomortelepon:string;
+  
+};
+
+export type LatestCustomersRaw = Omit<Customer, 'amount'> & {
+  amount: number;
+};
+// END CUSTOMERS //
+
+// export type users = {
+//   username: string;
+//   password: string;
+//   nama: string;
+//   alamat: string;
+//   email: string;
+//   nomortelepon: string;
+  // id: string;
+  // nama_montir: string;
+  // nomor_telepon: string;
+  // keahlian: string;
+// };
+
+export type UsersTable = {
+  username: string;
+  password: string;
+  nama: string;
+  alamat: string;
+  email: string;
+  nomortelepon: string;
+};
+
+export type UsersForm = {
   id: string;
+  // nama_montir: string;
+  // nomor_telepon: string;
+  // keahlian: string;
+  username: string;
+  password: string;
+  nama: string;
+  alamat: string;
+  email: string;
+  nomortelepon: string;
+};
+
+export type UsersField = {
+  username: string;
+  password: string;
+  email: string;
+  id: string;
+  // nama_montir: string;
+};
+
+export type LatestUsersRaw = Omit<User, 'amount'> & {
+  amount: number;
+};
+// END MONTIR //
+
+export type menu = {
+  no_menu:string;
+  nama_menu:string;
+  harga_menu:string;
+  
+};
+
+export type MenuTable = {
+  no_menu:string;
+  nama_menu:string;
+  harga_menu:string;
+};
+
+export type MenuField = {
+  no_menu:string;
+  nama_menu:string;
+  harga_menu:number;
+};
+
+export type MenuForm = {
+  no_menu:string;
+  nama_menu:string;
+  harga_menu:string; 
+};
+
+export type LatestMenuRaw = Omit<menu, 'amount'> & {
+  amount: number;
+};
+
+export type Service = {
+  id: string;
+  id_customer: string;
+  id_montir: string;
+  id_sukucadang: string;
+  sukucadang_price:number;
+  amount: number;
+  cost_service: number;
+  total: number; 
+  payment: string;
+  date: string;
+};
+
+export type ServiceTable = {
+  id: string;
+  id_customer: string;
+  id_montir: string;
+  id_sukucadang: string;
+  platenumber: string;
+  nama_montir: string;
+  sukucadang_price: number;
+  amount: number;
+  cost_service: number;
+  total: number; 
+  payment: string;
+  date: string;
+}
+
+export type ServiceForm = {
+  id: string;
+  id_customer: string;
+  id_montir: string;
+  id_sukucadang: string;
+  sukucadang_price:number;
+  amount: number;
+  cost_service: number;
+  total: number; 
+  payment: string;
+  date: string;
+}
+
+export type ServiceField = {
+  id: string;
+  id_customer: string;
+  id_montir: string;
+  id_sukucadang: string;
+  sukucadang_price:number;
+  amount: number;
+  cost_service: number;
+  total: number; 
+  payment: string;
+  date: string;
+}
+
+export type LatestServiceRaw = Omit<Service, 'amount'> & {
+  amount: number;
   name: string;
 };
 
-export type InvoiceForm = {
-  id: string;
-  customer_id: string;
-  amount: number;
-  status: 'pending' | 'paid';
+
+
+
+
+export type transaksi = {
+  id_transaksi:string;
+  nocustomer:string;
+  id_user:string;
+  tanggal_transaksi:string;
+  total_harga:string;
+  status_transaksi:string;
+  metode_pembayaran:string;
+  keterangan:string;
+  
+  poindipakai: string;
+  no_menu:string;
+  nama_menu:string;
+  quantity:string;
+  
 };
+
+export type TransaksiTable = {
+  id_transaksi:string;
+  nocustomer:string;
+  id_user:string;
+  username:string;
+  namacustomer:string;
+  tanggal_transaksi:string;
+  total_harga:string;
+  status_transaksi:string;
+  metode_pembayaran:string;
+  keterangan:string;
+  poin:string;
+  poindipakai: string;
+  no_menu:string;
+  nama_menu:string;
+  quantity:string;
+  
+};
+
+export type TransaksiField = {
+  id_transaksi:string;
+  nocustomer:string;
+  id_user:string;
+  poindipakai: string;
+  tanggal_transaksi:string;
+  total_harga:string;
+  status_transaksi:string;
+  metode_pembayaran:string;
+  keterangan:string;
+  no_menu: string;
+  nama_menu: string;
+  quantity: string;
+};
+
+export type TransaksiForm = {
+  id_transaksi: string;
+  nocustomer: string;
+  namacustomer: string;
+  username: string;
+  poindipakai: string;
+  id_user: string;
+  tanggal_transaksi: string;
+  total_harga: string;
+  status_transaksi: string;
+  metode_pembayaran: string;
+  keterangan: string;
+  no_menu: string;
+  nama_menu: string;
+  quantity: string;
+  menuItems?: { no_menu: string; nama_menu: string; harga_menu: number; quantity: number }[];
+};
+
+export type DtTransaksiForm = {
+  id_detail_transaksi: string;  
+  id_transaksi: string;         
+  id_menu: string;              
+  nama_menu: string;            
+  harga_menu: string;           
+  quantity: number;             
+  total_harga: string;          
+};
+
+export type DtTransaksiField = {
+  id_detail_transaksi: string;  
+  id_transaksi: string;         
+  id_menu: string;              
+  nama_menu: string;            
+  harga_menu: string;           
+  quantity: number;             
+  total_harga: string;          
+};
+
+export type DtTransaksiTable = {
+  id_detail_transaksi: string;  
+  id_transaksi: string;         
+  no_menu: string;              
+  nama_menu: string;            
+  harga_menu: string;           
+  quantity: number;             
+  total_harga: string;          
+};
+
+
+
+export type LatestTransaksiRaw = Omit<transaksi, 'amount'> & {
+  amount: number;
+};
+
+export const SignupFormSchema = z.object({
+  name: z
+    .string()
+    .min(2, { message: 'Name must be at least 2 characters long.' })
+    .trim(),
+  email: z.string().email({ message: 'Please enter a valid email.' }).trim(),
+  password: z
+    .string()
+    .min(8, { message: 'Be at least 8 characters long' })
+    .regex(/[a-zA-Z]/, { message: 'Contain at least one letter.' })
+    .regex(/[0-9]/, { message: 'Contain at least one number.' })
+    .regex(/[^a-zA-Z0-9]/, {
+      message: 'Contain at least one special character.',
+    })
+    .trim(),
+})
+ 
+export type FormState =
+  | {
+      errors?: {
+        name?: string[]
+        email?: string[]
+        password?: string[]
+      }
+      message?: string
+    }
+  | undefined

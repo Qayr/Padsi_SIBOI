@@ -1,102 +1,78 @@
-import { PEOPLE_URL } from '@/app/assets/index';
 import Image from 'next/image';
 
-interface GearProps {
-  backgroundImage: string;
+interface ImageCardProps {
+  imageSrc: string;
   title: string;
-  subtitle: string;
-  peopleJoined: string;
+  description: string;
 }
 
-const Gear = ({
-  backgroundImage,
-  title,
-  subtitle,
-  peopleJoined,
-}: GearProps) => {
+const ImageCard = ({ imageSrc, title, description }: ImageCardProps) => {
   return (
-    <div
-      className={`h-full w-full min-w-[1100px] ${backgroundImage} bg-cover bg-no-repeat lg:rounded-r-5xl 2xl:rounded-5xl`}
-    >
-      <div className="flex h-full flex-col items-start justify-between p-6 lg:px-20 lg:py-10">
-        <div className="flexCenter gap-4">
-          <div className="rounded-full bg-gray-600 p-4">
-            <Image
-              src="/streamline--cog-solid.svg"
-              alt="map"
-              width={28}
-              height={28}
-            />
-          </div>
-          <div className="flex flex-col gap-1">
-            <h4 className="flexCenter bold-20  bg w-full rounded-2xl bg-gray-600 text-white">
-              {title}
-            </h4>
-            <p className="flexCenter regular-14 w-full rounded-3xl bg-gray-600 text-white ">
-              {subtitle}
-            </p>
-          </div>
-        </div>
-
-        <div className="flexCenter gap-3">
-          <span className="flex -space-x-4 overflow-hidden">
-            {PEOPLE_URL.map((url) => (
-              <Image
-                className="inline-block h-10 w-10 rounded-full"
-                src={url}
-                key={url}
-                alt="person"
-                width={52}
-                height={52}
-              />
-            ))}
-          </span>
-          <p className="bold-16 md:bold-20 rounded-3xl bg-gray-600 text-white">
-            {peopleJoined}
-          </p>
-        </div>
+    <div className="relative flex flex-col items-center rounded-lg shadow-lg overflow-hidden bg-white">
+      <Image
+        src={imageSrc}
+        alt={title}
+        width={400}
+        height={300}
+        className="w-full h-[200px] object-cover"
+      />
+      <div className="p-4">
+        <h3 className="bold-18 text-gray-900">{title}</h3>
+        <p className="regular-14 text-gray-600 mt-2">{description}</p>
       </div>
     </div>
   );
 };
 
 export function Images() {
-  return (
-    <section className="2xl:max-container relative flex flex-col py-10 lg:mb-10 lg:py-20 xl:mb-20">
-      <div className="hide-scrollbar flex h-[340px] w-full items-start justify-start gap-8 overflow-x-auto lg:h-[400px] xl:h-[640px]">
-        <Gear
-          backgroundImage="bg-bg-img-2"
-          title="Service"
-          subtitle="Rantai, Kampas Rem, Kampas kopling, dll"
-          peopleJoined="50k+ Review"
-        />
-        <Gear
-          backgroundImage="bg-bg-img-1"
-          title="Available Gear"
-          subtitle="Servirvice para montir"
-          peopleJoined="50K+ Review"
-        />
-      </div>
+  const menuItems = [
+    {
+      imageSrc: '/menu-ramen.jpg',
+      title: 'Ramen Spesial',
+      description:
+        'Ramen autentik dengan kuah gurih dan topping lengkap. Cocok untuk penggemar cita rasa Jepang.',
+    },
+    {
+      imageSrc: '/menu-donburi.jpg',
+      title: 'Donburi Terbaik',
+      description:
+        'Semangkuk kebahagiaan dengan nasi hangat dan topping pilihan seperti chicken katsu atau beef teriyaki.',
+    },
+    {
+      imageSrc: '/menu-sushi.jpg',
+      title: 'Sushi Rolls',
+      description:
+        'Sushi gulung segar dengan pilihan isi tuna, salmon, atau avocado. Lezat dan sehat!',
+    },
+    {
+      imageSrc: '/interior.jpg',
+      title: 'Interior Nyaman',
+      description:
+        'Rasakan suasana modern dan cozy yang cocok untuk keluarga dan teman.',
+    },
+    {
+      imageSrc: '/promo.jpg',
+      title: 'Promo Mingguan',
+      description:
+        'Jangan lewatkan diskon menarik setiap minggu! Datang dan nikmati penawaran terbaik kami.',
+    },
+  ];
 
-      <div className="flexEnd mt-10 px-6 lg:-mt-60 lg:mr-6">
-        <div className="relative w-full overflow-hidden rounded-3xl bg-gray-500 p-8 lg:max-w-[500px] xl:max-w-[734px] xl:rounded-5xl xl:px-16 xl:py-20">
-          <h2 className="regular-24 md:regular-32 2xl:regular-64 capitalize text-black">
-            <strong>Bingung</strong> dan ga tau harus kemana?
-          </h2>
-          <p className="regular-14 xl:regular-16 mt-5 text-white">
-            Disaat kendaraan anda mogok tidak mau jalan bareng, ban tidak
-            berputar seperti waktu itu bersamanya, atau bahkan rantai putus
-            karena sudah tidak kuat menerima kenyataan? Tenang Kami para montir
-            RJP akan siap selalu memperbaiki masalah motor anda
-          </p>
-          <Image
-            src="/quote.svg"
-            alt="camp-2"
-            width={186}
-            height={219}
-            className="camp-quote"
+  return (
+    <section className="max-container mx-auto px-4 py-10 lg:py-20">
+      <h2 className="bold-32 text-center mb-8">Galeri Bowl Inc</h2>
+      <p className="regular-16 text-center text-gray-600 mb-16">
+        Nikmati pengalaman kuliner bersama kami. Lihat menu, interior, dan promo menarik kami.
+      </p>
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {menuItems.map((item, index) => (
+          <ImageCard
+            key={index}
+            imageSrc={item.imageSrc}
+            title={item.title}
+            description={item.description}
           />
-        </div>
+        ))}
       </div>
     </section>
   );

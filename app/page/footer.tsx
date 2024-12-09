@@ -6,59 +6,53 @@ import React from 'react';
 export function Footer() {
   return (
     <footer className="flexCenter mb-10 mt-10">
+      <div className="bg-gray-20 border mb-10" />
       <div className="padding-container max-container flex w-full flex-col gap-14">
         <div className="flex flex-col items-start justify-center gap-[10%] md:flex-row">
           <Link href="/" className="mb-10">
-            <Image src="/RJP_logo_1.png" alt="logo" width={74} height={29} />
+            <Image src="/favicon.ico" alt="logo" width={74} height={29} />
           </Link>
 
-          <div className="flex flex-wrap gap-10 sm:justify-between md:flex-1">
-            {FOOTER_LINKS.map((columns, index) => (
-              <FooterColumn title={columns.title} key={index}>
-                <ul className="regular-14 text-gray-30 flex flex-col gap-4">
-                  {columns.links.map((link) => (
-                    <Link href="/" key={link}>
-                      {link}
-                    </Link>
-                  ))}
-                </ul>
-              </FooterColumn>
-            ))}
+           {/* Footer Links */}
+           <div className="flex flex-wrap gap-10 sm:justify-between md:flex-1">
+            {/* Menu Section */}
+            <FooterColumn title="Menu">
+              <ul className="regular-14 text-gray-30 flex flex-col gap-4">
+                <Link href="/menu#breakfast">Breakfast</Link>
+                <Link href="/menu#lunch">Lunch</Link>
+                <Link href="/menu#dinner">Dinner</Link>
+                <Link href="/menu#desserts">Desserts</Link>
+              </ul>
+            </FooterColumn>
 
-            <div className="flex flex-col gap-5">
-              <FooterColumn title={FOOTER_CONTACT_INFO.title}>
-                {FOOTER_CONTACT_INFO.links.map((link) => (
-                  <Link
-                    href="/"
-                    key={link.label}
-                    className="flex gap-4 md:flex-col lg:flex-row"
-                  >
-                    <p className="whitespace-nowrap">{link.label}:</p>
-                    <p className="medium-14 text-blue-70 whitespace-nowrap">
-                      {link.value}
-                    </p>
-                  </Link>
-                ))}
-              </FooterColumn>
-            </div>
+            {/* Contact Info */}
+            <FooterColumn title="Contact">
+              <div className="flex flex-col gap-2">
+                <p>Phone: <span className="text-blue-70">+62 812 3456 7890</span></p>
+                <p>Email: <span className="text-blue-70">info@bowlinc.com</span></p>
+                <p>Address: <span className="text-blue-70">Jl. RM Sudiono No.40a</span></p>
+              </div>
+            </FooterColumn>
 
-            <div className="flex flex-col gap-5">
-              <FooterColumn title={SOCIALS.title}>
-                <ul className="regular-14 text-gray-30 flex gap-4">
-                  {SOCIALS.links.map((link) => (
-                    <Link href="/" key={link}>
-                      <Image src={link} alt="logo" width={24} height={24} />
-                    </Link>
-                  ))}
-                </ul>
-              </FooterColumn>
-            </div>
+            {/* Social Media */}
+            <FooterColumn title="Follow Us">
+              <ul className="flex gap-4">
+              
+                <Link href="https://www.instagram.com/bowlinc.ketapang" target="_blank">
+                  <Image src="/instagram.png" alt="Instagram" width={50} height={50} />
+                </Link>
+                
+              </ul>
+            </FooterColumn>
           </div>
         </div>
 
+        {/* Divider */}
         <div className="bg-gray-20 border" />
+
+        {/* Copyright */}
         <p className="regular-14 text-gray-30 w-full text-center">
-          2024 RJP Workshop | All rights reserved
+          © 2024 Bowl Inc | All rights reserved
         </p>
       </div>
     </footer>

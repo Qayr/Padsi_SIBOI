@@ -44,8 +44,10 @@ export const SOCIALS = {
 
 export const NAV_LINKS = [
   { href: '/dashboard', key: 'home', label: 'Dashboard' },
-  { href: '/dashboard/customers', key: 'customers', label: 'Customers' },
-  { href: '/dashboard/montir', key: 'montir', label: 'Montir' },
-  { href: '/dashboard/stock', key: 'stock', label: 'Stock' },
-  { href: '/dashboard/service', key: 'services', label: 'Services' }
+  { href: '/dashboard/users', key: 'user', label: 'User' },
+  { href: '/dashboard/customer', key: 'customer', label: 'Customer' },
+  { href: '/dashboard/menu', key: 'menu', label: 'Menu' },
+  
+  { href: '/dashboard/transaksi', key: 'transaksi', label: 'Transaksi' }, 
+  
 ];
