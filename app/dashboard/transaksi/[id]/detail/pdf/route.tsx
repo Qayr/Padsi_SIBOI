@@ -2,7 +2,7 @@ import Form from '../../../detail-form';
 import Breadcrumbs from '../../../breadcrumbs';
 import { fetchTransaksiById,fetchCustomers, fetchMenu,fetchUsers, fetchDtTransaksiById } from '@/app/lib/data';
 import React from 'react';
-import ReactPDF from '@react-pdf/renderer';
+import ReactPDF, { PageProps } from '@react-pdf/renderer';
 import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 
 
@@ -17,6 +17,10 @@ const styles = StyleSheet.create({
       flexGrow: 1
     }
   });
+
+  interface PageProps{
+    params:Promise<{id :string}>;
+  }
   
   // Create Document Component
   const MyDocument = () => (
@@ -32,8 +36,8 @@ const styles = StyleSheet.create({
     </Document>
   );
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
-    const id = params.id;
+export async function GET(request: Request, { params }: PageProps) {
+  const {id} = await params;
   const customer = await fetchCustomers();
   const menu = await fetchMenu();
   const users = await fetchUsers();
