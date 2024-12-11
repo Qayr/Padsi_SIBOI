@@ -27,7 +27,7 @@ const TransaksiPDFDownload = ({ tableId }: { tableId: string }) => {
   return (
     <button
       onClick={handleDownloadPDF}
-      className="px-4 py-2 bg-yellow-300 text-black rounded hover:bg-yellow-400"
+      className="px-4 py-2 bg-yellow-300 text-black rounded hover:bg-yellow-400  data-html2canvas-ignore"
     >
       Download PDF
     </button>

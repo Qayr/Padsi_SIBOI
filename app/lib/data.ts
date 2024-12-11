@@ -557,9 +557,11 @@ export async function fetchFilteredTransaksi(query: string, currentPage: number)
       transaksi.keterangan,
       transaksi.id_user,
       transaksi.poindipakai,
+      transaksi.newpoin,
       users.username,
       customer.namacustomer,
       customer.poin
+      
 
 		FROM transaksi
     JOIN customer ON transaksi.nocustomer = customer.nocustomer
@@ -572,6 +574,7 @@ export async function fetchFilteredTransaksi(query: string, currentPage: number)
       transaksi.keterangan::text ILIKE ${`%${query}%`} OR
       transaksi.metode_pembayaran ILIKE ${`%${query}%`} OR
       transaksi.poindipakai::text ILIKE ${`%${query}%`} OR
+      transaksi.newpoin::text ILIKE ${`%${query}%`} OR
       transaksi.tanggal_transaksi::text ILIKE ${`%${query}%`}
 		ORDER BY transaksi.id_transaksi DESC
     LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}

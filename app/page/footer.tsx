@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { FOOTER_CONTACT_INFO, FOOTER_LINKS, SOCIALS } from '@/app/assets/index';
+// import { FOOTER_CONTACT_INFO, FOOTER_LINKS, SOCIALS } from '@/app/assets/index';
 import React from 'react';
 
 export function Footer() {
@@ -16,14 +16,7 @@ export function Footer() {
            {/* Footer Links */}
            <div className="flex flex-wrap gap-10 sm:justify-between md:flex-1">
             {/* Menu Section */}
-            <FooterColumn title="Menu">
-              <ul className="regular-14 text-gray-30 flex flex-col gap-4">
-                <Link href="/menu#breakfast">Breakfast</Link>
-                <Link href="/menu#lunch">Lunch</Link>
-                <Link href="/menu#dinner">Dinner</Link>
-                <Link href="/menu#desserts">Desserts</Link>
-              </ul>
-            </FooterColumn>
+          
 
             {/* Contact Info */}
             <FooterColumn title="Contact">

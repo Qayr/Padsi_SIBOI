@@ -16,7 +16,7 @@ export default function Error({
 
   return (
     <main className="flex h-full flex-col items-center justify-center">
-      <h2 className="text-center">Masukan Nama Menu dan Harga Menu / Nama Menu Tidak Boleh Sama</h2>
+      <h2 className="text-center">Pilih Nama Customer, Pilih Menu dan Masukkan Kuantitas, Pilih Username, Masukkan Tanggal, Isi Keterangan</h2>
       <button
         className="mt-4 rounded-md bg-blue-500 px-4 py-2 text-sm text-white transition-colors hover:bg-blue-400"
         onClick={

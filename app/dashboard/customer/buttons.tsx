@@ -1,6 +1,8 @@
+'use client';
 import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { deleteCustomer } from '@/app/lib/actions';
+import { useState } from 'react';
 
 export function CreateCustomer() {
   return (
@@ -26,13 +28,50 @@ export function UpdateCustomer({ id }: { id: string }) {
 }
 
 export function DeleteCustomer({ id }: { id: string }) {
-  const deleteCustomerWithId = deleteCustomer.bind(null, id);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+
+  const handleDelete = async () => {
+    try {
+      await deleteCustomer(id); // delete user based on id
+      setShowConfirmation(false); // close the confirmation dialog
+    } catch (error) {
+      console.error('Delete failed:', error);
+    }
+  };
+
   return (
-    <form action={deleteCustomerWithId}>
-      <button className="rounded-md border bg-red-600 p-2 hover:bg-red-700">
+    <div>
+      {/* Delete Button */}
+      <button
+        className="rounded-md border bg-red-600 p-2 hover:bg-red-700"
+        onClick={() => setShowConfirmation(true)} // Show confirmation popup
+      >
         <span className="sr-only">Delete</span>
         <TrashIcon className="w-5" />
       </button>
-    </form>
+
+      {/* Confirmation Popup */}
+      {showConfirmation && (
+        <div className="fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-50">
+          <div className="bg-white p-6 rounded-md shadow-md">
+            <p>Are you sure you want to delete this user?</p>
+            <div className="mt-4 flex gap-4">
+              <button
+                className="bg-red-600 text-white rounded-md px-4 py-2 hover:bg-red-700"
+                onClick={handleDelete} // Proceed with delete action
+              >
+                Yes, delete
+              </button>
+              <button
+                className="bg-gray-300 text-black rounded-md px-4 py-2 hover:bg-gray-400"
+                onClick={() => setShowConfirmation(false)} // Cancel deletion
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }

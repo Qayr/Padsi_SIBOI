@@ -33,7 +33,7 @@ export default async function TransaksiPage(
         <h1 className={`${poppins.className} text-2xl`}>Transaksi</h1>
       </div>
       <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
-        <Search placeholder="Search user..." />
+        <Search placeholder="Search ..." />
         <CreateTransaksi />
       </div>
       {/* <Suspense key={query + currentPage} fallback={<TransaksiTableSkeleton />}>

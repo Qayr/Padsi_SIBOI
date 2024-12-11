@@ -6,7 +6,7 @@ const users = [
     // name: 'User',
     // email: 'user@nextmail.com',
     // password: '123456',
-
+    id:'5',
     username:'admin',
     password:'admin123',
     nama:'Qayro',
@@ -16,6 +16,7 @@ const users = [
 
   },
   {
+    id:'3',
     username:'owner1',
     password:'ownernihdeck',
     nama:'Jane Doe',
@@ -81,6 +82,7 @@ const transaksi = [
     keterangan:'Pesanan Meja 2',
     no_menu: '1',
     poindipakai:'1000',
+    newpoin:'1210',
     nama_menu: 'ayam kemangi',
     quantity: '1',
   }

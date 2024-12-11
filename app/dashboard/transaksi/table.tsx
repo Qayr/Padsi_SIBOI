@@ -13,6 +13,7 @@ export default async function TransaksiTable({
 
   // Fetch data transaksi
   const transaksi = await fetchFilteredTransaksi(query, currentPage);
+  console.log('Transaksi Data:', transaksi);
 
   // Calculate total pendapatan
   const totalPendapatan = transaksi.reduce((total, item) => total + parseFloat(item.total_harga || '0'), 0);
@@ -45,8 +46,12 @@ export default async function TransaksiTable({
                           </p>
                         </div>
                         <div className="flex flex-col">
-                          <p className="text-xs">POIN </p>
+                          <p className="text-xs">POIN - </p>
                           <p className="font-medium">{transaksi.poindipakai}</p>
+                        </div>
+                        <div className="flex flex-col">
+                          <p className="text-xs">POIN + </p>
+                          <p className="font-medium">{transaksi.newpoin}</p>
                         </div>
                         <div className="flex flex-col">
                           <p className="text-xs">Total Harga</p>
@@ -87,7 +92,10 @@ export default async function TransaksiTable({
                         Total Harga
                       </th>
                       <th scope="col" className="px-3 py-5 font-medium">
-                        POIN 
+                        POIN -
+                      </th>
+                      <th scope="col" className="px-3 py-5 font-medium">
+                        POIN +
                       </th>
                       <th scope="col" className="px-3 py-5 font-medium">
                         Status
@@ -126,6 +134,9 @@ export default async function TransaksiTable({
                           {transaksi.poindipakai}
                         </td>
                         <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
+                          {transaksi.newpoin}
+                        </td>
+                        <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
                           {transaksi.status_transaksi}
                         </td>
                         <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
@@ -154,7 +165,9 @@ export default async function TransaksiTable({
                   </div>
 
                   {/* Use the client-side PDF download component */}
-                  <TransaksiPDFDownload tableId="transaksi-table" />
+                  <div data-html2canvas-ignore>
+                  <TransaksiPDFDownload  tableId="transaksi-table" />
+                  </div>
                 </div>
               </div>
             </div>

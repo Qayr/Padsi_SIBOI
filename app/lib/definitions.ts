@@ -1,7 +1,7 @@
 import z from 'zod';
 
 export type User = {
-  // id: string;
+  id: string;
   // name: string;
   // email: string;
   // password: string;
@@ -62,18 +62,7 @@ export type LatestCustomersRaw = Omit<Customer, 'amount'> & {
 };
 // END CUSTOMERS //
 
-// export type users = {
-//   username: string;
-//   password: string;
-//   nama: string;
-//   alamat: string;
-//   email: string;
-//   nomortelepon: string;
-  // id: string;
-  // nama_montir: string;
-  // nomor_telepon: string;
-  // keahlian: string;
-// };
+
 
 export type UsersTable = {
   username: string;
@@ -82,13 +71,11 @@ export type UsersTable = {
   alamat: string;
   email: string;
   nomortelepon: string;
+  
 };
 
 export type UsersForm = {
   id: string;
-  // nama_montir: string;
-  // nomor_telepon: string;
-  // keahlian: string;
   username: string;
   password: string;
   nama: string;
@@ -98,6 +85,7 @@ export type UsersForm = {
 };
 
 export type UsersField = {
+  
   username: string;
   password: string;
   email: string;
@@ -211,7 +199,7 @@ export type transaksi = {
   status_transaksi:string;
   metode_pembayaran:string;
   keterangan:string;
-  
+  newpoin:string;
   poindipakai: string;
   no_menu:string;
   nama_menu:string;
@@ -231,6 +219,7 @@ export type TransaksiTable = {
   metode_pembayaran:string;
   keterangan:string;
   poin:string;
+  newpoin:string;
   poindipakai: string;
   no_menu:string;
   nama_menu:string;
@@ -243,6 +232,7 @@ export type TransaksiField = {
   nocustomer:string;
   id_user:string;
   poindipakai: string;
+  newpoin:string;
   tanggal_transaksi:string;
   total_harga:string;
   status_transaksi:string;

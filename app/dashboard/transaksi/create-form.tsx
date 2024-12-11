@@ -526,13 +526,13 @@ const selectedCustomerData = customer.find(
             onChange={handleCheckboxChange}
           />
         </label>
-        <div>Jumlah Poin yang Tersedia: {points}</div>
+        
       </div>
 
       {/* Input Poin untuk jumlah poin yang ingin digunakan */}
       <div>
     <label htmlFor="poin" className="mb-2 block text-sm font-medium">
-      Poin yang Digunakan
+    {isDiscountChecked ? 'Poin yang Digunakan' : 'Poin yang Didapat'}
     </label>
     <input
       type="number"
@@ -544,6 +544,8 @@ const selectedCustomerData = customer.find(
       className="peer block w-full rounded-md border border-gray-200 py-2 pl-3 text-sm outline-2 placeholder:text-gray-500"
     />
   </div>
+
+ 
     
 
       {/* Total Harga */}

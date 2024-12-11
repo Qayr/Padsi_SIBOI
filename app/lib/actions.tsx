@@ -93,6 +93,7 @@ const FormSchema5 = z.object({
   metode_pembayaran: z.string(),
   keterangan: z.string(),
   use_points: z.string(),
+  // newpoin: z.string(),
 
 })
 
@@ -551,7 +552,8 @@ export async function createTransaksi(formData: FormData) {
     status_transaksi, 
     metode_pembayaran, 
     keterangan,
-    poin = '0',  // Ambil poin dari form data, nilai default '0'
+    poin = '0', 
+    // newpoin = '0',
     use_points = 'false', // Pastikan untuk mengambil nilai checkbox
   } = CreateTransaksi.parse({
     nocustomer: formData.get('nocustomer'),
@@ -561,7 +563,8 @@ export async function createTransaksi(formData: FormData) {
     status_transaksi: formData.get('status_transaksi'),
     metode_pembayaran: formData.get('metode_pembayaran'),
     keterangan: formData.get('keterangan'),
-    poin: formData.get('poin'),  // Ambil poin yang dikirimkan
+    poin: formData.get('poin'),
+    // newpoin : formData.get('newpoin'), 
     use_points: formData.get('use_points') || 'false', // Jika tidak ada nilai, gunakan 'false' sebagai default
   });
 
@@ -570,10 +573,19 @@ export async function createTransaksi(formData: FormData) {
 
   console.log('use_points:', use_points);  // Log nilai use_points
 
-  await sql`
-    INSERT INTO transaksi (nocustomer, id_user, total_harga, status_transaksi, metode_pembayaran, keterangan, tanggal_transaksi , poindipakai)  
-    VALUES (${nocustomer}, ${id_user}, ${total_harga}, ${status_transaksi}, ${metode_pembayaran}, ${keterangan}, ${tanggal_transaksi}, ${poin})
+  if (isUsePoints) {
+    await sql`
+    INSERT INTO transaksi (nocustomer, id_user, total_harga, status_transaksi, metode_pembayaran, keterangan, tanggal_transaksi , newpoin )  
+    VALUES (${nocustomer}, ${id_user}, ${total_harga}, ${status_transaksi}, ${metode_pembayaran}, ${keterangan}, ${tanggal_transaksi}, ${poin} )
   `;
+    
+  } else {
+    await sql`
+    INSERT INTO transaksi (nocustomer, id_user, total_harga, status_transaksi, metode_pembayaran, keterangan, tanggal_transaksi , poindipakai )  
+    VALUES (${nocustomer}, ${id_user}, ${total_harga}, ${status_transaksi}, ${metode_pembayaran}, ${keterangan}, ${tanggal_transaksi}, ${poin} )
+  `;
+    
+  }
   
   if (isUsePoints) {
     console.log("Poin digunakan");

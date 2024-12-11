@@ -172,7 +172,7 @@ export default function Form() {
           Cancel
         </Link>
         <Button
-          className="items-center bg-blue-400 hover:bg-blue-600"
+          className="items-center bg-yellow-400 hover:bg-yellow-300"
           type="submit"
         >
           Create User

@@ -12,9 +12,17 @@ export const metadata: Metadata = {
   title: 'Customers',
 };
 
-export default async function customersPage() {
-  const query = ''; // Default query
-  const currentPage = 1; // Default page number
+export default async function customersPage( props: {
+  searchParams?: Promise<{
+    query?: string;
+    page?: string;
+  }>;
+}) {
+  
+  const searchParams = await props.searchParams;
+  const query = searchParams?.query || '';
+  const currentPage = Number(searchParams?.page) || 1;
+
 
   const totalPages = await fetchCustomersPages(query);
 

@@ -33,7 +33,7 @@ export default async function menuPage(
         <h1 className={`${poppins.className} text-2xl`}>Menu</h1>
       </div>
       <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
-        <Search placeholder="Search montir..." />
+        <Search placeholder="Search..." />
         <CreateMenu />
       </div>
       <Suspense key={query + currentPage} fallback={<MenuTableSkeleton />}>

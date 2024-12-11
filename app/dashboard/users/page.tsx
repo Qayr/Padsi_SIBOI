@@ -13,7 +13,8 @@ export const metadata: Metadata = {
   title: 'User',
 };
 
-export default async function usersPage(props: {
+export default async function usersPage(
+  props: {
   searchParams?: Promise<{
     query?: string;
     page?: string;
