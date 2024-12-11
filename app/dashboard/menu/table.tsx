@@ -66,7 +66,7 @@ export default async function MenuTable({
                         {menu.nama_menu}
                       </td>
                       <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
-                        {menu.harga_menu}
+                      {Number(menu.harga_menu).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}
                       </td>
                       
                       
