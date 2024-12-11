@@ -2,7 +2,7 @@ import Form from '../../../detail-form';
 import Breadcrumbs from '../../../breadcrumbs';
 import { fetchTransaksiById,fetchCustomers, fetchMenu,fetchUsers, fetchDtTransaksiById } from '@/app/lib/data';
 import React from 'react';
-import ReactPDF, { PageProps } from '@react-pdf/renderer';
+import ReactPDF from '@react-pdf/renderer';
 import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 
 
