@@ -7,7 +7,7 @@ import { fetchTransaksiById,fetchCustomers, fetchMenu,fetchUsers, fetchDtTransak
   }
 
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({ params }: PageProps ) {
   const {id} = await params;
   const customer = await fetchCustomers();
   const menu = await fetchMenu();
