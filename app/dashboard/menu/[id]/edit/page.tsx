@@ -2,11 +2,14 @@ import Form from '@/app/dashboard/menu/edit-form';
 import Breadcrumbs from '../../breadcrums';
 import { fetchMenuById } from '@/app/lib/data';
 
-export default async function Page({ params }: { params: { id: string } }) {
-  const id = params.id;
+interface PageProps{
+  params:Promise<{id :string}>;
+}
 
+export default async function Page({ params }: PageProps) {
+  const {id} = await params;
   // Fetch the menu data using the provided id
-  const [menu] = await Promise.all([fetchMenuById(id)]);
+  const menu = await fetchMenuById(id);
 
   return (
     <main>

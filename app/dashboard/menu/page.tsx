@@ -13,18 +13,20 @@ export const metadata: Metadata = {
   title: 'Menu',
 };
 
-export default async function menuPage({
-  searchParams,
-}: {
-  searchParams?: {
+export default async function menuPage(
+  props: {
+  searchParams?: Promise<{
     query?: string;
     page?: string;
-  };
+  }>;
 }) {
+  
+  const searchParams = await props.searchParams;
   const query = searchParams?.query || '';
   const currentPage = Number(searchParams?.page) || 1;
 
   const totalPages = await fetchMenuPages(query);
+  
   return (
     <div className="w-full">
       <div className="flex w-full items-center justify-between">

@@ -2,9 +2,17 @@ import Form from '@/app/dashboard/users/edit-form';
 import Breadcrumbs from '@/app/dashboard/menu/breadcrums';
 import { fetchUsersById } from '@/app/lib/data';
 
-export default async function Page({ params }: { params: { id: string } }) {
-  const id = params.id;
-  const [users] = await Promise.all([fetchUsersById(id)]);
+
+
+  interface PageProps{
+    params:Promise<{id :string}>;
+  }
+  
+  export default async function Page({ params }: PageProps) {
+    const {id} = await params;
+    // Fetch the menu data using the provided id
+    const users = await fetchUsersById(id);
+
   return (
     <main>
       <Breadcrumbs
