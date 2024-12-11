@@ -5,7 +5,7 @@ import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { SignupFormSchema, FormState } from '@/app/lib/definitions'
-import { signIn } from '@/auth';
+// import { signIn } from '@/auth';
 // import { AuthError } from 'next-auth';
 import { AuthError } from 'next-auth';
 import { createPool } from '@vercel/postgres';
@@ -446,161 +446,7 @@ export async function deleteMenu(no_menu: string) {
 
 // END STOK //
 
-export async function createService(prevState: State3, formData: FormData) {
-  //   const { customerId, amount, status } = CreateInvoice.parse({
-  const validatedFields = CreateService.safeParse({
-    id_customer: formData.get('id_customer'),
-    id_montir: formData.get('id_montir'),
-    id_sukucadang: formData.get('id_sukucadang'),
-    sukucadang_price: formData.get('sukucadang_price'),
-    amount: formData.get('amount'),
-    cost_service: formData.get('cost_service'),
-    total: formData.get('total'),
-    payment: formData.get('payment'),
-  });
 
-  if (!validatedFields.success) {
-    return {
-      errors: validatedFields.error.flatten().fieldErrors,
-      message: 'Missing Fields. Failed to Create Service.',
-    };
-  }
-  const {
-    id_customer,
-    username,
-    id_sukucadang,
-    sukucadang_price,
-    amount,
-    cost_service,
-    total,
-    payment,
-  } = validatedFields.data;
-  const date = new Date().toISOString().split('T')[0];
-  const pool = createPool({
-    connectionString: process.env.POSTGRES_URL,
-  });
-
-  let client;
-
-  try {
-    client = await pool.connect();
-
-    // Check current stock level
-    const result = await client.query(
-      `
-      SELECT stok
-      FROM sukucadang
-      WHERE id = $1
-    `,
-      [id_sukucadang],
-    );
-
-    const currentStock = result.rows[0]?.stok;
-
-    if (!currentStock || currentStock < amount) {
-      throw new Error('Insufficient stock.');
-    }
-
-    await client.query('BEGIN');
-
-    await client.query(
-      `
-      INSERT INTO service (id_customer, id_montir, id_sukucadang, sukucadang_price, amount, cost_service, total, payment, date)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, NOW())
-    `,
-      [
-        id_customer,
-        id_montir,
-        id_sukucadang,
-        sukucadang_price,
-        amount,
-        cost_service,
-        total,
-        payment,
-      ],
-    );
-
-    await client.query(
-      `
-      UPDATE sukucadang
-      SET stok = stok - $1
-      WHERE id = $2
-    `,
-      [amount, id_sukucadang],
-    );
-
-    await client.query('COMMIT');
-  } catch (error) {
-    if (client) {
-      await client.query('ROLLBACK');
-    }
-    return {
-      message: 'Database Error: Failed to Create Service.',
-    };
-  } finally {
-    if (client) {
-      client.release();
-    }
-    pool.end();
-  }
-
-  revalidatePath('/dashboard/service');
-  redirect('/dashboard/service');
-}
-
-export async function updateService(
-  id: string,
-  prevState: State3,
-  formData: FormData,
-) {
-  const validatedFields = UpdateService.safeParse({
-    id_customer: formData.get('id_customer'),
-    id_montir: formData.get('id_montir'),
-    id_sukucadang: formData.get('id_sukucadang'),
-    sukucadang_price: formData.get('sukucadang_price'),
-    amount: formData.get('amount'),
-    cost_service: formData.get('cost_service'),
-    total: formData.get('total'),
-    payment: formData.get('payment'),
-  });
-
-  if (!validatedFields.success) {
-    return {
-      errors: validatedFields.error.flatten().fieldErrors,
-      message: 'Missing Fields. Failed to Update Service.',
-    };
-  }
-  const {
-    id_customer,
-    
-    id_sukucadang,
-    sukucadang_price,
-    amount,
-    cost_service,
-    total,
-    payment,
-  } = validatedFields.data;
-
-  try {
-    await sql`
-      UPDATE service 
-      SET id_customer = ${id_customer}, id_montir = ${id_montir}, id_sukucadang = ${id_sukucadang}, sukucadang_price = ${sukucadang_price}, amount = ${amount}, cost_service = ${cost_service}, total = ${total}, payment = ${payment}
-      WHERE id = ${id}
-      `;
-  } catch (error) {
-    return {
-      message: 'Database Error: Failed to Update Service.',
-    };
-  }
-
-  revalidatePath('/dashboard/service');
-  redirect('/dashboard/service');
-}
-
-export async function deleteService(id: string) {
-  await sql`DELETE FROM service WHERE id = ${id}`;
-  revalidatePath('/dashboard/service');
-}
 
 // END SERVICE //
 
@@ -751,40 +597,7 @@ export async function createTransaksi(formData: FormData) {
 
 
 
-  export async function tempoTransaksi( formData: FormData) {
-    // Parse and validate form data using CreateTransaksi schema
-    const {nocustomer, id_user, tanggal_transaksi,total_harga,status_transaksi,metode_pembayaran,keterangan,poin} = TempoTransaksi.parse({
-      nocustomer: formData.get('nocustomer'),
-      id_user :formData.get('id_user'),
-      tanggal_transaksi: formData.get('tanggal_transaksi'),
-      total_harga: formData.get('total_harga'),
-      status_transaksi: formData.get('status_transaksi'),
-      metode_pembayaran: formData.get('metode_pembayaran'),
-      keterangan: formData.get('keterangan'),
-      poin: formData.get('poin'),
-      
   
-      
-    });
-  
-      // Insert into transaksi table
-     await sql
-        `
-        INSERT INTO temporary_transactions (nocustomer, id_user, total_harga, status_transaksi, metode_pembayaran, keterangan, tanggal_transaksi)  
-        VALUES (${nocustomer},${id_user}, ${total_harga}, ${status_transaksi}, ${metode_pembayaran}, ${keterangan}, ${tanggal_transaksi})      `
-        
-      ;
-  
-      await sql`
-      UPDATE customer
-      SET poin = poin + ${poin} 
-      WHERE nocustomer = ${nocustomer}
-    `;
-  
-      revalidatePath('/dashboard/transaksi');
-      redirect('/dashboard/transaksi');
-    }
-
      // Get the generated transaction ID
 
     // Insert menu items into the transaksi_menu table

@@ -11,12 +11,8 @@ import {
   // InvoiceForm,
   // InvoicesTable,
   // LatestInvoiceRaw,
-  users,
-  Montir,
-  MontirForm,
-  MontirTable,
-  MontirField,
-  LatestMontirRaw,
+  User,
+  
   Customer,
   Service,
   menu,
@@ -34,6 +30,9 @@ import {
   UsersForm,
   LatestTransaksiRaw,
   DtTransaksiField,
+  UsersField,
+  UsersTable,
+  LatestUsersRaw,
   // Revenue,
 } from './definitions';
 import { createPool } from '@vercel/postgres';
@@ -49,7 +48,7 @@ export async function getUsers(username: string) {
   try {
     await new Promise((resolve) => setTimeout(resolve, 30000));
     const users = await sql`SELECT * FROM users WHERE username=${username}`;
-    return users.rows[0] as users;
+    return users.rows[0] as User;
   } catch (error) {
     console.error('Failed to fetch user:', error);
     throw new Error('Failed to fetch user.');
@@ -270,7 +269,7 @@ export async function fetchFilteredUsers(query: string, currentPage: number,) {
   unstable_noStore();
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
   try {
-    const users = await sql<usersTable>`
+    const users = await sql<UsersTable>`
 		SELECT *
 		FROM users
 		WHERE
@@ -462,37 +461,9 @@ export async function fetchMenuById(id: string) {
   }
 }
 
-export async function fetchLatestMenu() {
-  let retries = 0;
-  
-  // Retry logic
-  while (retries < MAX_RETRIES) {
-    try {
-      const data = await sql<LatestSukuCadangRaw>`
-        SELECT sukucadang.sukucadang_name, sukucadang.sukucadang_price, sukucadang.stok, sukucadang.merk
-        FROM sukucadang
-        ORDER BY sukucadang.sukucadang_name DESC
-        LIMIT 5`;
 
-      const latestStock = data.rows.map((stock) => ({
-        ...stock,
-      }));
-      return latestStock;
-    } catch (error:any) {
-      console.error('Database Error:', error);
-      if (error.code === 'ETIMEDOUT' || error.code === 'ECONNRESET') {
-        // Retry if there is a timeout or connection reset error
-        retries++;
-        console.log(`Retrying... Attempt ${retries}`);
-        await new Promise(resolve => setTimeout(resolve, RETRY_DELAY));
-      } else {
-        throw new Error('Failed to fetch the latest stock.');
-      }
-    }
-  }
 
-  throw new Error('Max retries reached. Failed to fetch the latest invoices.');
-}
+ 
 
 // Service //
 
