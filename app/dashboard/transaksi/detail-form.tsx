@@ -191,12 +191,12 @@ export default  function Form({
             <td className="py-2 px-4 text-sm text-gray-700">{item.nama_menu || 'Menu not found'}</td>
             <td className="py-2 px-4 text-sm text-gray-700">{item.quantity || 0}</td>
             <td className="py-2 px-4 text-sm text-gray-700">{parseFloat('1000000').toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</td>
-            <td className="py-2 px-4 text-sm text-gray-700">{(parseFloat(item.harga_menu) * item.quantity).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</td>
+            {/* <td className="py-2 px-4 text-sm text-gray-700">{(parseFloat(item.harga_menu) * item.quantity).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</td> */}
             
           </tr>
         )) : (
           <tr>
-            <td colSpan="4" className="py-2 px-4 text-sm text-gray-500 text-center">No items found</td>
+            {/* <td colSpan="4" className="py-2 px-4 text-sm text-gray-500 text-center">No items found</td> */}
           </tr>
         )}
       </tbody>
