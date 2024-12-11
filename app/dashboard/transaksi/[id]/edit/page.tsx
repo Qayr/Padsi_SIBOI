@@ -1,9 +1,14 @@
 import Form from '../../edit_form';
 import Breadcrumbs from '../../breadcrumbs';
 import { fetchTransaksiById, fetchMenu } from '@/app/lib/data';
+import { inter } from '@/app/assets/fonts';
 
-export default async function Page({ params }: { params: { id: string } }) {
-  const id = params.id;
+interface PageProps{
+  params: Promise<{id: string}>;
+}
+
+export default async function Page({ params }: PageProps) {
+  const {id} = await params;
   const menu = await fetchMenu();
   const [transaksi] = await Promise.all([fetchTransaksiById(id)]);
   return (
