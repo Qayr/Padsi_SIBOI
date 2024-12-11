@@ -285,6 +285,7 @@ export async function fetchFilteredUsers(query: string, currentPage: number,) {
       users.email::text ILIKE ${`%${query}%`} OR
       users.nomortelepon ILIKE ${`%${query}%`}
 		GROUP BY users.username, users.password, users.namauser, users.alamatuser, users.email, users.nomortelepon, users.id_user
+    ORDER BY users.id_user ASC
     LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
 	  `;
 

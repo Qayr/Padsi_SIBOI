@@ -7,7 +7,7 @@ export default async function TransaksiTable({
 }: {
   searchParams: { query?: string; page?: string };
 }) {
-  // Ambil parameter dari URL
+  
   const { query = '', page = '1' } = searchParams;
   const currentPage = parseInt(page, 10) || 1;
 
