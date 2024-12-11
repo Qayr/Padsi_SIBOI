@@ -251,49 +251,40 @@ export default function Form({
   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    
-    
-  const transactionData = {
-    transaksi: {
-      nocustomer: selectedCustomer,
-      total_harga: totalPrice,
-      discounted_price: discountedPrice,
-      status_transaksi: transactionStatus,
-      payment_method: paymentMethod,
-      description: description,
-      use_points: isDiscountChecked,               // Whether points are being used (boolean)
-      points_used: isDiscountChecked ? points : 0, // If points are used, set the points used value
-      points_earned: isDiscountChecked ? 0 : newpoin,
-    },
-    transaksi_menu: menuItems.map(item => ({
-      menuId: item.menuId,
-      quantity: item.quantity,
-    })),
+  
+    const formData = new FormData();
+  
+    // Append simple properties from the 'transaksi' object
+    formData.append('nocustomer', selectedCustomer);
+    formData.append('total_harga', totalPrice.toString());
+    formData.append('discounted_price', discountedPrice.toString());
+    formData.append('status_transaksi', transactionStatus);
+    formData.append('payment_method', paymentMethod);
+    formData.append('description', description);
+    formData.append('use_points', isDiscountChecked.toString()); // Convert boolean to string
+    formData.append('points_used', (isDiscountChecked ? points : 0).toString());
+    formData.append('points_earned', (isDiscountChecked ? 0 : newpoin).toString());
+  
+    // Append menu items
+    menuItems.forEach(item => {
+      formData.append('transaksi_menu[]', JSON.stringify({
+        menuId: item.menuId,
+        quantity: item.quantity,
+      }));
+    });
+  
+    setLoading(true);
+    setError('');
+    setSuccess('');
+  
+    // Send data to backend
+    const response = await createTransaksi(formData);
+  
+    // Directly use the response object without conditional checks
+    setSuccess('Transaksi berhasil dibuat!');
+    setLoading(false);
   };
-
-    try {
-      setLoading(true); // Set loading state to true while waiting for the transaction to be processed
-      setError(''); // Reset error state
-      setSuccess(''); // Reset success state
-
-      
-
-      // Kirim data transaksi ke backend
-      const response = await createTransaksi(transactionData);
-
-      if (response.success) {
-        setSuccess('Transaksi berhasil dibuat!');
-      } else {
-        setError(response.message || 'Gagal membuat transaksi, coba lagi nanti.');
-      }
-    } catch (error) {
-      setError('Terjadi kesalahan saat membuat transaksi, coba lagi nanti.');
-      console.error('Error creating transaction:', error);
-    } finally {
-      setLoading(false); // Set loading state to false after the transaction is complete
-    }
-  };
+  
 
 const selectedCustomerData = customer.find(
   c => c.nocustomer.toString() === selectedCustomer.toString()
