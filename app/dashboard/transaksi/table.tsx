@@ -13,8 +13,9 @@ export default async function TransaksiTable({
 
   // Fetch data transaksi
   const transaksi = await fetchFilteredTransaksi(query, currentPage);
-  const totalPendapatan = transaksi.reduce((total,item) => total + + parseFloat(item.total_harga || 0), 0);
 
+  // Calculate total pendapatan
+  const totalPendapatan = transaksi.reduce((total, item) => total + parseFloat(item.total_harga || '0'), 0);
   return (
     <div className="w-full">
       <div id="transaksi-table">

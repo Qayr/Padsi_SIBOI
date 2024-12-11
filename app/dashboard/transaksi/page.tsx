@@ -7,13 +7,13 @@ import { fetchTransaksiPages } from '@/app/lib/data';
 import { poppins } from '@/app/assets/fonts';
 import { Metadata } from 'next';
 import { CreateTransaksi } from './buttons';
-// import { TransaksiTableSkeleton } from '@/app/dashboard/skeleton';
+import { TransaksiTableSkeleton } from '@/app/dashboard/skeleton';
 
 export const metadata: Metadata = {
   title: 'Transaksi',
 };
 
-export default async function menuPage(
+export default async function TransaksiPage(
   props: {
   searchParams?: Promise<{
     query?: string;
@@ -39,7 +39,7 @@ export default async function menuPage(
       {/* <Suspense key={query + currentPage} fallback={<TransaksiTableSkeleton />}>
         <Table query={query} currentPage={currentPage} />
       </Suspense> */}
-      <Table query={query} currentPage={currentPage} searchParams={searchParams} />
+      <Table searchParams={{ query, page: String(currentPage) }} />
       <div className="mt-5 flex w-full justify-center">
         <Pagination totalPages={totalPages} />
       </div>
