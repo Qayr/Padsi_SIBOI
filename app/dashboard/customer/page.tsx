@@ -12,16 +12,9 @@ export const metadata: Metadata = {
   title: 'Customers',
 };
 
-export default async function customersPage({
-  searchParams = {},
-}: {
-  searchParams?: {
-    query?: string;
-    page?: string;
-  };
-}) {
-  const query = searchParams.query || '';
-  const currentPage = Number(searchParams.page) || 1;
+export default async function customersPage() {
+  const query = ''; // Default query
+  const currentPage = 1; // Default page number
 
   const totalPages = await fetchCustomersPages(query);
 
