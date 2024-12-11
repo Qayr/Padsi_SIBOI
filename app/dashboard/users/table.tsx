@@ -1,6 +1,6 @@
 import { fetchFilteredUsers } from '@/app/lib/data';
 import { DeleteUsers, UpdateUsers } from '@/app/dashboard/users/button';
-import { users } from '@/app/lib/placeholder-data';
+
 
 export default async function UsersTable({
   query,
@@ -10,6 +10,7 @@ export default async function UsersTable({
   currentPage: number;
 }) {
   const users = await fetchFilteredUsers(query, currentPage);
+  console.log("Fetched Users Data:", users);
 
   return (
     <div className="w-full">
@@ -20,7 +21,7 @@ export default async function UsersTable({
               <div className="md:hidden">
                 {users?.map((users) => (
                   <div
-                    key={users.username}
+                    key={users.id_user}
                     className="mb-2 w-full rounded-md bg-white p-4"
                   >
                     <div className="flex w-full items-center justify-between border-b py-5">
@@ -34,11 +35,11 @@ export default async function UsersTable({
                       </div>
                       <div className="flex flex-col">
                         <p className="text-xs">Nama</p>
-                        <p className="font-medium">{users.nama}</p>
+                        <p className="font-medium">{users.namauser}</p>
                       </div>
                       <div className="flex flex-col">
                         <p className="text-xs">Alamat</p>
-                        <p className="font-medium">{users.alamat}</p>
+                        <p className="font-medium">{users.alamatuser}</p>
                       </div>
                       <div className="flex flex-col">
                         <p className="text-xs">Email</p>
@@ -67,6 +68,7 @@ export default async function UsersTable({
                     <th scope="col" className="px-3 py-5 font-medium">
                       Alamat
                     </th>
+                    
                     <th scope="col" className="px-3 py-5 font-medium">
                       Nomor Telepon
                     </th>
@@ -83,10 +85,10 @@ export default async function UsersTable({
                         {users.username}
                       </td>
                       <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
-                        {users.nama}
+                        {users.namauser}
                       </td>
                       <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
-                        {users.alamat}
+                        {users.alamatuser}
                       </td>
                       <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
                         {users.nomortelepon}
@@ -94,8 +96,8 @@ export default async function UsersTable({
                       
                       <td className="whitespace-nowrap bg-white px-4 py-5 pr-3">
                         <div className="flex gap-3">
-                          <UpdateUsers id={users.username} />
-                          <DeleteUsers id={users.username} />
+                          <UpdateUsers id={users.id_user} />
+                          <DeleteUsers id={users.id_user} />
                         </div>
                       </td>
                     </tr>

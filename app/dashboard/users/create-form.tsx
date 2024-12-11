@@ -90,8 +90,8 @@ export default function Form() {
           <div className="relative mt-2 rounded-md">
             <div className="relative">
               <input
-                id="nama"
-                name="nama"
+                id="namauser"
+                name="namauser"
                 type="text"
                 placeholder="Fill Nama User"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
@@ -108,8 +108,8 @@ export default function Form() {
           <div className="relative mt-2 rounded-md">
             <div className="relative">
               <input
-                id="alamat"
-                name="alamat"
+                id="alamatuser"
+                name="alamatuser"
                 type="text"
                 placeholder="Fill alamat"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"

@@ -57,14 +57,13 @@ type MenuItem = {
 
 
 const FormSchema3 = z.object({
-  
-  username: z.string(),
-  Username:z.string(),
-  password: z.string(),
-  nama: z.string(),
-  alamat: z.string(),
-  email: z.string(),
-  nomortelepon: z.string(),
+  id_user : z.string(),
+  username : z.string(),
+  password : z.string(),
+  namauser : z.string(),
+  alamatuser : z.string(),
+  nomortelepon : z.string(),
+  email : z.string(),
   
 });
 
@@ -212,8 +211,8 @@ const UpdateTransaksi = FormSchema8.omit({idtransaksi:true});
 
 const DtTransaksi = FormSchema7.omit({idtransaksi:true, tanggaltransaksi: true});
 
-const CreateUsers = FormSchema3.omit({ Username: true });
-const UpdateUsers = FormSchema3.omit({ Username: true });
+const CreateUsers = FormSchema3.omit({ id_user: true });
+const UpdateUsers = FormSchema3.omit({ id_user: true });
 
 const CreateMenu = FormSchema4.omit({ no_menu: true });
 const UpdateMenu = FormSchema4.omit({ no_menu: true });
@@ -328,22 +327,22 @@ export async function deleteCustomer(nocustomer: string) {
 // END CUSTOMER //
 
 export async function createUsers(formData: FormData) {
-  const{ username, password, nama, alamat, email, nomortelepon } = CreateUsers.parse({
+  const{ username, password, namauser, alamatuser, email, nomortelepon } = CreateUsers.parse({
     username: formData.get('username'),
     password: formData.get('password'),
-    nama: formData.get('nama'),
-    alamat: formData.get('alamat'),
+    namauser: formData.get('namauser'),
+    alamatuser: formData.get('alamatuser'),
     email: formData.get('email'),
     nomortelepon: formData.get('nomortelepon'), 
   });
 
-  if (!username || !password || !nama || !alamat || !email || !nomortelepon) {
+  if (!username || !password || !namauser || !alamatuser || !email || !nomortelepon) {
     throw new Error("Semua field harus diisi.");
   }
   
     await sql`
-      INSERT INTO users (username, password, nama, alamat, email, nomortelepon)
-      VALUES ( ${username}, ${password}, ${nama}, ${alamat}, ${email}, ${nomortelepon})
+      INSERT INTO users (username, password, namauser, alamatuser, email, nomortelepon)
+      VALUES ( ${username}, ${password}, ${namauser}, ${alamatuser}, ${email}, ${nomortelepon})
     `;
  
 
@@ -353,15 +352,15 @@ export async function createUsers(formData: FormData) {
 
 
 export async function updateUsers(
-  username: string,
+  id_user: string,
   formData: FormData,
 ) {
-  const {  password,nama, alamat, email, nomortelepon  } = UpdateUsers.parse({
-   
+  const { username, password,namauser, alamatuser, email, nomortelepon  } = UpdateUsers.parse({
+    
     username: formData.get('username'),
     password: formData.get('password'),
-    nama: formData.get('nama'),
-    alamat: formData.get('alamat'),
+    namauser: formData.get('nama'),
+    alamatuser: formData.get('alamat'),
     email: formData.get('email'),
     nomortelepon: formData.get('nomortelepon'),
   });
@@ -369,14 +368,14 @@ export async function updateUsers(
     
 
   // Validasi: cek jika ada field yang kosong
-  if (!username || !password || !nama || !alamat || !email || !nomortelepon) {
+  if (!username || !password || !namauser || !alamatuser || !email || !nomortelepon) {
     throw new Error("Semua field harus diisi.");
   }
   
     await sql`
         UPDATE users
-        SET  username = ${username}, password = ${password}, nama = ${nama}, alamat = ${alamat} , email = ${email}, nomortelepon = ${nomortelepon}
-        WHERE username = ${username}
+        SET  username = ${username}, password = ${password}, namauser = ${namauser}, alamatuser = ${alamatuser} , email = ${email}, nomortelepon = ${nomortelepon}
+        WHERE id_user = ${id_user}
       `;
   
 
@@ -384,8 +383,8 @@ export async function updateUsers(
   redirect('/dashboard/users');
 }
 
-export async function deleteUsers(username: string) {
-  await sql`DELETE FROM users WHERE username = ${username}`;
+export async function deleteUsers(id_user: string) {
+  await sql`DELETE FROM users WHERE id_user = ${id_user}`;
   revalidatePath('/dashboard/users');
 }
 

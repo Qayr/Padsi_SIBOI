@@ -149,7 +149,7 @@ export default async function TransaksiTable({
                           <div className="flex gap-3" data-html2canvas-ignore>
                             <DtTransaksi id={transaksi.id_transaksi} />
                             <UpdateTransaksi id={transaksi.id_transaksi} />
-                            <DeleteTransaksi id={transaksi.id_transaksi} />
+                            {/* <DeleteTransaksi id={transaksi.id_transaksi} /> */}
                           </div>
                         </td>
                       </tr>

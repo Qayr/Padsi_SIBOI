@@ -2,18 +2,14 @@
 
 import Link from 'next/link';
 import { UsersForm } from '@/app/lib/definitions';
-import { useFormState } from 'react-dom';
 import { Button } from '@/app/ui/button';
 import { updateUsers } from '@/app/lib/actions';
-import {
-  UserCircleIcon,
-  InboxArrowDownIcon,
-} from '@heroicons/react/24/outline';
+
 
 export default function Form({ users }: { users: UsersForm }) {
   // const initialState = { message: null, errors: {} };
-  const updateUsersWithId = updateUsers.bind(null, users.username);
-
+  const updateUsersWithId = updateUsers.bind(null, users.id_user);
+  console.log('Form data submitted:', users);
   
   // const [state, dispatch] = useFormState(updateUsersWithId, initialState);
   return (
@@ -22,7 +18,7 @@ export default function Form({ users }: { users: UsersForm }) {
         {/* Customer Name */}
         <div className="mb-4">
           <label
-            htmlFor="Username"
+            htmlFor="username"
             className="mb-2 block text-sm font-medium"
           >
             Username
@@ -81,7 +77,7 @@ export default function Form({ users }: { users: UsersForm }) {
                 name="nama"
                 type="text"
                 placeholder="Fill Nama"
-                defaultValue={users.nama}
+                defaultValue={users.namauser}
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               />
               {/* <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" /> */}
@@ -103,7 +99,7 @@ export default function Form({ users }: { users: UsersForm }) {
                 name="alamat"
                 type="text"
                 placeholder="Fill Alamat"
-                defaultValue={users.alamat}
+                defaultValue={users.alamatuser}
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               />
               {/* <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" /> */}

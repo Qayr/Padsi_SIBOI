@@ -1,14 +1,11 @@
 import z from 'zod';
 
 export type User = {
-  id: string;
-  // name: string;
-  // email: string;
-  // password: string;
+  id_user: string;
   username:string;
   password:string;
-  nama:string;
-  alamat:string;
+  namauser:string;
+  alamatuser:string;
   email:string;
   nomortelepon:string;
 
@@ -67,29 +64,29 @@ export type LatestCustomersRaw = Omit<Customer, 'amount'> & {
 export type UsersTable = {
   username: string;
   password: string;
-  nama: string;
-  alamat: string;
+  namauser: string;
+  alamatuser: string;
   email: string;
   nomortelepon: string;
-  
+  id_user:string;
 };
 
 export type UsersForm = {
-  id: string;
+  id_user: string;
   username: string;
   password: string;
-  nama: string;
-  alamat: string;
+  namauser: string;
+  alamatuser: string;
   email: string;
   nomortelepon: string;
 };
 
 export type UsersField = {
-  
+  id_user: string;
   username: string;
   password: string;
   email: string;
-  id: string;
+  
   // nama_montir: string;
 };
 

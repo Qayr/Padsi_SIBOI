@@ -17,7 +17,7 @@ import { fetchUsersById } from '@/app/lib/data';
     <main>
       <Breadcrumbs
         breadcrumbs={[
-          { label: 'Stok', href: '/dashboard/users' },
+          { label: 'User', href: '/dashboard/users' },
           {
             label: 'Edit Users',
             href: `/dashboard/users/${id}/edit`,

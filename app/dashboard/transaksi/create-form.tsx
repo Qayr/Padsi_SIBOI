@@ -410,7 +410,7 @@ const selectedCustomerData = customer.find(
                 Pilih User
               </option>
               {users && users?.map((users) => (
-                <option key={users.id} value={users.id}>
+                <option key={users.id_user} value={users.id_user}>
                   {users.username}
                 </option>
               ))}

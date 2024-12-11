@@ -249,12 +249,12 @@ export async function fetchUsers() {
       SELECT
         username,
         password,
-        nama,
-        alamat,
+        namauser,
+        alamatuser,
         nomortelepon,
-        id
+        id_user
       FROM users
-      ORDER BY nama ASC
+      ORDER BY namauser ASC
     `;
 
     const users = data.rows;
@@ -265,6 +265,10 @@ export async function fetchUsers() {
   }
 }
 
+
+
+
+
 export async function fetchFilteredUsers(query: string, currentPage: number,) {
   unstable_noStore();
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -273,14 +277,14 @@ export async function fetchFilteredUsers(query: string, currentPage: number,) {
 		SELECT *
 		FROM users
 		WHERE
-		  users.username ILIKE ${`%${query}%`} OR
+      users.id_user ::text ILIKE ${`%${query}%`} OR
+		  users.username :: text ILIKE ${`%${query}%`} OR
       users.password::text ILIKE ${`%${query}%`} OR
-      users.nama::text ILIKE ${`%${query}%`} OR
-      users.alamat::text ILIKE ${`%${query}%`} OR
+      users.namauser::text ILIKE ${`%${query}%`} OR
+      users.alamatuser::text ILIKE ${`%${query}%`} OR
       users.email::text ILIKE ${`%${query}%`} OR
-      users.id::text ILIKE ${`%${query}%`} OR
       users.nomortelepon ILIKE ${`%${query}%`}
-		GROUP BY users.username, users.password, users.nama, users.alamat, users.email, users.nomortelepon, users.id
+		GROUP BY users.username, users.password, users.namauser, users.alamatuser, users.email, users.nomortelepon, users.id_user
     LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
 	  `;
 
@@ -298,10 +302,11 @@ export async function fetchUsersPages(query: string) {
     const count = await sql `SELECT COUNT(*)
     FROM users
     WHERE
-    users.username ILIKE ${`%${query}%`} OR
+    users.id_user ::text  ILIKE ${`%${query}%`} OR
+    users.username::text ILIKE ${`%${query}%`} OR
     users.password::text ILIKE ${`%${query}%`} OR
-    users.nama::text ILIKE ${`%${query}%`} OR
-    users.alamat::text ILIKE ${`%${query}%`} OR
+    users.namauser::text ILIKE ${`%${query}%`} OR
+    users.alamatuser::text ILIKE ${`%${query}%`} OR
     users.email::text ILIKE ${`%${query}%`} OR
     users.nomortelepon ILIKE ${`%${query}%`}
     `;
@@ -314,20 +319,21 @@ export async function fetchUsersPages(query: string) {
   }
 }
 
-export async function fetchUsersById(username: string) {
+export async function fetchUsersById(id_user: string) {
   unstable_noStore();
   try {
     // await new Promise((resolve) => setTimeout(resolve, 30000));
     const data = await sql<UsersForm>`
       SELECT
+         users.id_user,
         users.username,
         users.password,
-        users.nama,
-        users.alamat,
+        users.namauser,
+        users.alamatuser,
         users.email,
         users.nomortelepon
       FROM users
-      WHERE users.username = ${username};
+      WHERE users.id_user = ${id_user};
     `;
 
     const users = data.rows.map((users) => ({
@@ -565,7 +571,7 @@ export async function fetchFilteredTransaksi(query: string, currentPage: number)
 
 		FROM transaksi
     JOIN customer ON transaksi.nocustomer = customer.nocustomer
-    JOIN users ON transaksi.id_user = users.id
+    JOIN users ON transaksi.id_user = users.id_user
 		WHERE
       customer.namacustomer::text ILIKE ${`%${query}%`} OR
       users.username ILIKE ${`%${query}%`} OR

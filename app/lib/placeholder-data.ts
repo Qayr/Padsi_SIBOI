@@ -6,24 +6,16 @@ const users = [
     // name: 'User',
     // email: 'user@nextmail.com',
     // password: '123456',
-    id:'5',
+    id_user:'5',
     username:'admin',
     password:'admin123',
-    nama:'Qayro',
-    alamat:'Jl. Pisang No.21',
+    namauser:'Qayro',
+    alamatuser:'Jl. Pisang No.21',
     email:'admin@coba.com',
     nomortelepon:'081234555890'
 
   },
-  {
-    id:'3',
-    username:'owner1',
-    password:'ownernihdeck',
-    nama:'Jane Doe',
-    alamat:'Jl. Mangga No.32',
-    email:'owner@Kmail.com',
-    nomortelepon:'084587667891'
-  },
+  
 ];
 
 const customer = [
