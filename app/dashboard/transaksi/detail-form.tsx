@@ -100,7 +100,7 @@ export default  function Form({
   
     
     if (formData.id_user) {
-      const selectedUserData = users.find((u) => u.id.toString() === formData.id_user.toString());
+      const selectedUserData = users.find((u) => u.id_user.toString() === formData.id_user.toString());
       if (selectedUserData) {
         setUsername(selectedUserData.username); 
       }
