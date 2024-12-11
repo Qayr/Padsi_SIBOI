@@ -2,8 +2,10 @@ import Form from '../../edit-form';
 import Breadcrumbs from '../../breadcrumbs';
 import { fetchCustomerById } from '@/app/lib/data';
 
-export default async function Page({ params }: { params: { id: string } }) {
-  const id = params.id;
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params; // Resolve promise jika diperlukan
+  const id = resolvedParams.id;
+
   const [customers] = await Promise.all([fetchCustomerById(id)]);
   return (
     <main>
@@ -21,3 +23,4 @@ export default async function Page({ params }: { params: { id: string } }) {
     </main>
   );
 }
+
