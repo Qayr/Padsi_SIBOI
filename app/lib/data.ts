@@ -148,7 +148,7 @@ export async function fetchFilteredCustomers(query: string, currentPage: number,
       customer.poin::text ILIKE ${`%${query}%`} OR
       customer.nomortelepon::text ILIKE ${`%${query}%`}
 		GROUP BY customer.nocustomer, customer.namacustomer, customer.alamatcustomer, customer.poin, customer.nomortelepon
-		ORDER BY customer.namacustomer ASC
+		ORDER BY customer.poin DESC
     LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
 	  `;
 
